@@ -1,0 +1,46 @@
+syntax = "proto3";
+package moviecatalog;
+
+service MovieCatalog {
+  rpc SaveNewMovie (StoredMovieItem) returns (AddMovieResponse) {}
+  rpc FetchExistingMovie (FetchMovieRequest) returns (StoredMovieItem) {}
+}
+
+service StreamingShows {
+    rpc StreamMovie (FetchToStreamMovieByName) returns (stream MovieFileData) {}
+    rpc StreamShow (FetchToStreamShowByName) returns (stream ShowFileData) {}
+}
+
+// Movie Catalog
+message StoredMovieItem {
+    string name = 1;
+    double price = 2;
+    bool inStock = 3;
+    int32 isbn = 4;
+}
+message AddMovieResponse {
+    bool wasSaved = 1;
+    int32 itemId = 2;
+}
+message FetchMovieRequest {
+    string name = 1;
+}
+
+// Streaming
+message FetchToStreamMovieByName {
+    bool AvailToStream = 1;
+    string name = 2;
+}
+
+message FetchToStreamShowByName {
+    string name = 1;
+}
+
+message MovieFileData {
+    bool AvailToStream = 1;
+    string MovieFile = 2;
+}
+
+message ShowFileData {
+    string ShowFile = 1;
+}
