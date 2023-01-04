@@ -1,6 +1,7 @@
 syntax = "proto3";
 package moviecatalog;
 
+// Services
 service MovieCatalog {
   rpc SaveNewMovie (StoredMovieItem) returns (AddMovieResponse) {}
   rpc FetchExistingMovie (FetchMovieRequest) returns (StoredMovieItem) {}
@@ -18,10 +19,12 @@ message StoredMovieItem {
     bool inStock = 3;
     int32 isbn = 4;
 }
+
 message AddMovieResponse {
     bool wasSaved = 1;
     int32 itemId = 2;
 }
+
 message FetchMovieRequest {
     string name = 1;
 }
